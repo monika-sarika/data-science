@@ -1,0 +1,80 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data=pd.read_csv(r"C:\Users\user\Downloads\12th\12th\MLR\Investment.csv")
+x=data.iloc[:,:-1]
+y=data.iloc[:,4]
+x=pd.get_dummies(x)
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=0)
+
+from sklearn.linear_model import LinearRegression
+regressor=LinearRegression()
+regressor.fit(x_train,y_train)
+y_pred=regressor.predict(x_test)
+
+import statsmodels.formula.api as sm
+x=np.append(arr=np.ones((50,1)).astype(int),values=x,axis=1)
+
+
+import statsmodels.api as sm
+x_opt=x[:,[0,1,2,3,4,5]]
+regressor_OLS=sm.OLS(endog=y, exog=x_opt).fit()
+regressor_OLS.summary()
+
+x_opt=x[:,[0,1,2,3,5]]
+regressor_OLS=sm.OLS(endog=y, exog=x_opt).fit()
+regressor_OLS.summary()
+
+x_opt=x[:,[0,1,2,3]]
+regressor_OLS=sm.OLS(endog=y, exog=x_opt).fit()
+regressor_OLS.summary()
+
+x_opt=x[:,[0,1,2]]
+regressor_OLS=sm.OLS(endog=y, exog=x_opt).fit()
+regressor_OLS.summary()
+
+x_opt=x[:,[0,1]]
+regressor_OLS=sm.OLS(endog=y, exog=x_opt).fit()
+regressor_OLS.summary()
+
+x_opt=x[:,[1]]
+regressor_OLS=sm.OLS(endog=y, exog=x_opt).fit()
+regressor_OLS.summary()
+
+***********************************************************************************************
+Output
+
+
+
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                                 OLS Regression Results                                
+=======================================================================================
+Dep. Variable:                 Profit   R-squared (uncentered):                   0.947
+Model:                            OLS   Adj. R-squared (uncentered):              0.946
+Method:                 Least Squares   F-statistic:                              878.4
+Date:                Thu, 08 Jun 2023   Prob (F-statistic):                    6.00e-33
+Time:                        14:12:54   Log-Likelihood:                         -581.74
+No. Observations:                  50   AIC:                                      1165.
+Df Residuals:                      49   BIC:                                      1167.
+Df Model:                           1                                                  
+Covariance Type:            nonrobust                                                  
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+x1             1.3363      0.045     29.637      0.000       1.246       1.427
+==============================================================================
+Omnibus:                        1.920   Durbin-Watson:                   0.282
+Prob(Omnibus):                  0.383   Jarque-Bera (JB):                1.246
+Skew:                          -0.044   Prob(JB):                        0.536
+Kurtosis:                       2.232   Cond. No.                         1.00
+==============================================================================
+
+Notes:
+[1] R² is computed without centering (uncentered) since the model does not contain a constant.
+[2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+
