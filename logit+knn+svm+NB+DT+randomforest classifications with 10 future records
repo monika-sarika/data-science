@@ -1,0 +1,391 @@
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+data=pd.read_csv(r'C:\Users\user\Downloads\2nd\2nd\5. RANDOM FOREST\Social_Network_Ads.csv')
+
+x=data.iloc[:,[2,3]]
+y=data.iloc[:,-1].values
+
+from sklearn.model_selection import train_test_split
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.30,random_state=0)
+
+
+from sklearn.preprocessing import StandardScaler
+sc=StandardScaler()
+x_train=sc.fit_transform(x_train)
+x_test=sc.transform(x_test)
+
+#for logit classifications
+
+from sklearn.linear_model import LogisticRegression
+classifier_logit=LogisticRegression()
+classifier_logit.fit(x_train,y_train)
+
+y_pred_logit=classifier_logit.predict(x_test)
+
+
+
+from sklearn.metrics import confusion_matrix
+cm_logit=confusion_matrix(y_test, y_pred_logit)
+print('confusion matrics for logit')
+print(cm_logit)
+
+
+
+from sklearn.metrics import accuracy_score
+acs_logit=accuracy_score(y_test, y_pred_logit)
+print('accuracy for logit',acs_logit)
+
+bias_logit=classifier_logit.score(x_train,y_train)
+print('bais for logit',bias_logit)
+
+
+variance_logit=classifier_logit.score(x_test,y_test)
+print('variance for logit',variance_logit)
+
+
+
+from sklearn.metrics import classification_report
+clsrp_logit=classification_report(y_test, y_pred_logit)
+print('classification report for logit')
+print(clsrp_logit)
+
+#for SVM classification
+
+
+from sklearn.svm import SVC
+classifier_svm = SVC()
+classifier_svm.fit(x_train, y_train)
+
+y_pred_svm=classifier_svm.predict(x_test)
+
+
+from sklearn.metrics import confusion_matrix
+cm_svm=confusion_matrix(y_test, y_pred_svm)
+print('confusion matrics for svm')
+print(cm_svm)
+
+
+from sklearn.metrics import accuracy_score
+acs_svm=accuracy_score(y_test, y_pred_svm)
+print('accuracy for svm',acs_svm)
+
+bias_svm=classifier_svm.score(x_train,y_train)
+print('bais for svm',bias_svm)
+
+
+variance_svm=classifier_svm.score(x_test,y_test)
+print('variance for svm',variance_svm)
+
+
+from sklearn.metrics import classification_report
+clsrp_svm=classification_report(y_test, y_pred_svm)
+print('classification matrics for svm')
+print(clsrp_svm)
+
+
+
+#for KNN classifications
+
+
+from sklearn.neighbors import KNeighborsClassifier
+classifier_knn = KNeighborsClassifier()
+classifier_knn.fit(x_train, y_train)
+
+y_pred_knn=classifier_knn.predict(x_test)
+
+
+from sklearn.metrics import confusion_matrix
+cm_knn=confusion_matrix(y_test, y_pred_knn)
+print('confusion matrics for knn')
+print(cm_knn)
+
+
+from sklearn.metrics import accuracy_score
+acs_knn=accuracy_score(y_test, y_pred_knn)
+print('accuract for knn',acs_knn)
+
+bias_knn=classifier_knn.score(x_train,y_train)
+print('bais for knn',bias_knn)
+
+
+variance_knn=classifier_knn.score(x_test,y_test)
+print('variance for knn',variance_knn)
+
+
+from sklearn.metrics import classification_report
+clsrp_knn=classification_report(y_test, y_pred_knn)
+print('classification report for knn')
+print(clsrp_knn)
+
+#for naive bayes classifications
+
+from sklearn.naive_bayes import GaussianNB
+classifier_g= GaussianNB()
+classifier_g.fit(x_train,y_train)
+
+
+y_pred_g=classifier_g.predict(x_test)
+
+
+
+
+from sklearn.metrics import confusion_matrix
+cm_g=confusion_matrix(y_test, y_pred_g)
+print("gaussian cm",cm_g)
+
+
+from sklearn.metrics import accuracy_score
+acs_g=accuracy_score(y_test, y_pred_g)
+print("gaussian acs",acs_g)
+
+bias_g=classifier_g.score(x_train,y_train)
+print("gaussian bias",bias_g)
+
+
+variance_g=classifier_g.score(x_test,y_test)
+print("gaussian variance",variance_g)
+
+
+
+from sklearn.metrics import classification_report
+clsrp_g=classification_report(y_test, y_pred_g)
+print('guassian classification report')
+print(clsrp_g)
+
+
+
+#for decision tree classifications
+
+from sklearn.tree import DecisionTreeClassifier
+classifier_dt=DecisionTreeClassifier(criterion='gini',max_depth=2)
+classifier_dt.fit(x_train,y_train)
+
+y_pred_dt=classifier_dt.predict(x_test)
+
+from sklearn.metrics import confusion_matrix
+cm_dt=confusion_matrix(y_test, y_pred_dt)
+print('confusion matrics for dt')
+print(cm_dt)
+
+
+from sklearn.metrics import accuracy_score
+acs_dt=accuracy_score(y_test, y_pred_dt)
+print('accuract for dt',acs_dt)
+
+bias_dt=classifier_dt.score(x_train,y_train)
+print('bais for dt',bias_dt)
+
+
+variance_dt=classifier_dt.score(x_test,y_test)
+print('variance for dt',variance_dt)
+
+
+from sklearn.metrics import classification_report
+clsrp_dt=classification_report(y_test, y_pred_dt)
+print('classification report for dt')
+print(clsrp_dt)
+
+
+
+#for RandomForest Classification
+
+from sklearn.ensemble import RandomForestClassifier
+classifier_rf=RandomForestClassifier(n_estimators=50,criterion='gini',max_depth=2)
+classifier_rf.fit(x_train,y_train)
+
+y_pred_rf=classifier_rf.predict(x_test)
+
+
+from sklearn.metrics import confusion_matrix
+cm_rf=confusion_matrix(y_test, y_pred_rf)
+print('confusion matrics for rf')
+print(cm_rf)
+
+
+from sklearn.metrics import accuracy_score
+acs_rf=accuracy_score(y_test, y_pred_rf)
+print('accuract for rf',acs_rf)
+
+bias_rf=classifier_rf.score(x_train,y_train)
+print('bais for rf',bias_rf)
+
+
+variance_rf=classifier_rf.score(x_test,y_test)
+print('variance for rf',variance_rf)
+
+
+from sklearn.metrics import classification_report
+clsrp_rf=classification_report(y_test, y_pred_rf)
+print('classification report for rf')
+print(clsrp_rf)
+
+from lazypredict.Supervised import LazyClassifier
+
+clf = LazyClassifier(verbose=0, ignore_warnings=True, custom_metric=None)
+models, predictions = clf.fit(x_train, x_test, y_train, y_test)
+
+
+
+
+#for future predictions
+dataset2=pd.read_csv(r'C:\Users\user\Downloads\30th\Future prediction1.csv')
+d2=dataset2.copy()
+dataset2=dataset2.iloc[:,[2,3]].values
+
+from sklearn.preprocessing import StandardScaler
+sc1=StandardScaler()
+new=sc1.fit_transform(dataset2)
+
+pred_logit=pd.DataFrame()
+pred_svm=pd.DataFrame()
+pred_knn=pd.DataFrame()
+pred_dt=pd.DataFrame()
+pred_rf=pd.DataFrame()
+pred_g=pd.DataFrame()
+
+
+d2['pred_logit']=classifier_logit.predict(new)
+d2['pred_svm']=classifier_svm.predict(new)
+d2['pred_knn']=classifier_knn.predict(new)
+d2['pred_dt']=classifier_dt.predict(new)
+d2['pred_rf']=classifier_rf.predict(new)
+d2['pred_g']=classifier_g.predict(new)
+
+
+d2.to_csv('future prediction for 10 records.csv ')
+
+
+import os
+os.getcwd()
+
+
+
+*******************************************************************************
+OUTPUT
+
+
+
+
+confusion matrics for logit
+[[74  5]
+ [11 30]]
+accuracy for logit 0.8666666666666667
+bais for logit 0.8321428571428572
+variance for logit 0.8666666666666667
+classification report for logit
+              precision    recall  f1-score   support
+
+           0       0.87      0.94      0.90        79
+           1       0.86      0.73      0.79        41
+
+    accuracy                           0.87       120
+   macro avg       0.86      0.83      0.85       120
+weighted avg       0.87      0.87      0.86       120
+
+confusion matrics for svm
+[[72  7]
+ [ 4 37]]
+accuracy for svm 0.9083333333333333
+bais for svm 0.9178571428571428
+variance for svm 0.9083333333333333
+classification matrics for svm
+              precision    recall  f1-score   support
+
+           0       0.95      0.91      0.93        79
+           1       0.84      0.90      0.87        41
+
+    accuracy                           0.91       120
+   macro avg       0.89      0.91      0.90       120
+weighted avg       0.91      0.91      0.91       120
+
+confusion matrics for knn
+[[73  6]
+ [ 4 37]]
+accuract for knn 0.9166666666666666
+bais for knn 0.9214285714285714
+variance for knn 0.9166666666666666
+classification report for knn
+              precision    recall  f1-score   support
+
+           0       0.95      0.92      0.94        79
+           1       0.86      0.90      0.88        41
+
+    accuracy                           0.92       120
+   macro avg       0.90      0.91      0.91       120
+weighted avg       0.92      0.92      0.92       120
+
+
+gaussian cm [[74  5]
+ [ 8 33]]
+gaussian acs 0.8916666666666667
+gaussian bias 0.8857142857142857
+gaussian variance 0.8916666666666667
+guassian classification report
+              precision    recall  f1-score   support
+
+           0       0.90      0.94      0.92        79
+           1       0.87      0.80      0.84        41
+
+    accuracy                           0.89       120
+   macro avg       0.89      0.87      0.88       120
+weighted avg       0.89      0.89      0.89       120
+
+
+
+confusion matrics for dt
+[[72  7]
+ [ 3 38]]
+accuract for dt 0.9166666666666666
+bais for dt 0.9142857142857143
+variance for dt 0.9166666666666666
+classification report for dt
+              precision    recall  f1-score   support
+
+           0       0.96      0.91      0.94        79
+           1       0.84      0.93      0.88        41
+
+    accuracy                           0.92       120
+   macro avg       0.90      0.92      0.91       120
+weighted avg       0.92      0.92      0.92       120
+
+
+
+confusion matrics for rf
+[[72  7]
+ [ 3 38]]
+accuract for rf 0.9166666666666666
+bais for rf 0.9142857142857143
+variance for rf 0.9166666666666666
+classification report for rf
+              precision    recall  f1-score   support
+
+           0       0.96      0.91      0.94        79
+           1       0.84      0.93      0.88        41
+
+    accuracy                           0.92       120
+   macro avg       0.90      0.92      0.91       120
+weighted avg       0.92      0.92      0.92       120
+
+100%|██████████| 29/29 [00:02<00:00, 11.76it/s]
+
+
+
+
+
+
+
+
+
+User ID  	Gender	Age	  EstimatedSalary	pred_logit	pred_svm	pred_knn	pred_dt	pred_rf	pred_g
+15724611	Male   	45	      60000          	0	         0       	0	       0	      0      	0
+15725621	Female	79      	64000          	1	         1      	0        1        1	      1
+15725622	Male	  23      	78000         	0          0        0	       0	      0       0
+15725622	Female	34	      45000          	0          0       	0	       0	      0      	0
+15588044	Male   	29	      76000          	0          0      	0	       0	      0      	0
+15746039	Female	70	      89000	          1          1        1	       1	      1      	1
+15704887	Male  	86	      120000          1          1       	1	       1	      1      	1
+15746009	Female	46	       23000	        0          0       	0	       0	      0      	0
+15876009	Male	  32	       70000          0          0	      0	       0	      0	      0
+15886009	Female	100	       90000	        1          1        1	       1	      1	      1
